@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Model.Airport;
+import View.TravelPath;
 
 
 public class Main 
@@ -10,27 +11,30 @@ public class Main
     public static void main(String[] args)
     {
         HashMap<String, Airport> airportMap;
-        String[] adjAirports;
+        Airport[] adjAirports;
+        List<String> list;
+
+        String src = "QLD", dest = "NT";
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        adjAirports = airportMap.get("WA").getPlaneTravelPaths();
-
-        System.out.println("WA Plane Paths: ");
-        for (int ii = 0; ii < adjAirports.length; ii++)
+        //Keep in mind that the data provided by AirportDist1.0 has few valid paths
+        list = TravelPath.travelPathDFS(airportMap, src, dest);
+        System.out.println("\n" + src + " to " + dest + ":");
+        if (list.size() == 1)
         {
-            System.out.println(adjAirports[ii]);
+            System.out.println("Invalid Route");
         }
-
-        adjAirports = airportMap.get("WA").getCarTravelPaths();
-
-        System.out.println("\nWA Car Paths: ");
-        for (int ii = 0; ii < adjAirports.length; ii++)
+        else
         {
-            System.out.println(adjAirports[ii]);
+            for (int ii = 0; ii < list.size(); ii++)
+            {
+                System.out.println(list.get(ii));
+            }
         }
+        
 
         //Load Candidates
 

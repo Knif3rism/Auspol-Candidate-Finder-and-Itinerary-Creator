@@ -45,35 +45,35 @@ public class Airport
         return longtitude;
     }
 
-    public String[] getPlaneTravelPaths()
+    public Airport[] getPlaneTravelPaths()
     {
-        String[] planePathArr;
+        Airport[]planePathArr;
 
-        planePathArr = new String[byPlane.size()];
+        planePathArr = new Airport[byPlane.size()];
 
         for (int ii = 0; ii < planePathArr.length; ii++)
         {
-            planePathArr[ii] = byPlane.get(ii).getDest().getState();
+            planePathArr[ii] = byPlane.get(ii).dest;
         }
 
         return planePathArr;
     }
 
-    public String[] getCarTravelPaths()
+    public Airport[] getCarTravelPaths()
     {
-        String[] carPathArr;
+        Airport[] carPathArr;
 
-        carPathArr = new String[byCar.size()];
+        carPathArr = new Airport[byCar.size()];
 
         for (int ii = 0; ii < carPathArr.length; ii++)
         {
-            carPathArr[ii] = byPlane.get(ii).getDest().getState();
+            carPathArr[ii] = byCar.get(ii).dest;
         }
 
         return carPathArr;
     }
 
-    public boolean getVisited()
+    public boolean hasBeenVisited()
     {
         return visited;
     }
