@@ -11,6 +11,7 @@ public class Airport
     private Double longtitude;
     private List<TravelPath> byPlane;
     private List<TravelPath> byCar;
+    private boolean visited;
 
     //Vertex of multiple Airports
     public Airport(String inState, String inName, Double inLat, Double inLong)
@@ -21,6 +22,7 @@ public class Airport
         longtitude = inLong;
         byPlane = new ArrayList<TravelPath>();
         byCar = new ArrayList<TravelPath>();
+        visited = false;
     }
 
     public String getState()
@@ -43,14 +45,47 @@ public class Airport
         return longtitude;
     }
 
-    public List<TravelPath> getPlaneTravel()
+    public String[] getPlaneTravelPaths()
     {
-        return byPlane;
+        String[] planePathArr;
+
+        planePathArr = new String[byPlane.size()];
+
+        for (int ii = 0; ii < planePathArr.length; ii++)
+        {
+            planePathArr[ii] = byPlane.get(ii).getDest().getState();
+        }
+
+        return planePathArr;
     }
 
-    public List<TravelPath> getCarTravel()
+    public String[] getCarTravelPaths()
     {
-        return byCar;
+        String[] carPathArr;
+
+        carPathArr = new String[byCar.size()];
+
+        for (int ii = 0; ii < carPathArr.length; ii++)
+        {
+            carPathArr[ii] = byPlane.get(ii).getDest().getState();
+        }
+
+        return carPathArr;
+    }
+
+    public boolean getVisited()
+    {
+        return visited;
+    }
+
+    public void setVisited()
+    {
+        visited = true;
+    }
+
+    public void clearVisited()
+    {
+        visited = false;
     }
 
     public void addPlaneEdge(Airport dest, long dist, String time)
@@ -64,7 +99,7 @@ public class Airport
     }
 
     //Edge
-    class TravelPath
+    public class TravelPath
     {
         Airport src;
         Airport dest;

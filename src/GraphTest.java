@@ -11,11 +11,11 @@ public class GraphTest
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        airportMap.forEach((key, value) -> {
+        /*airportMap.forEach((key, value) -> {
             System.out.println("---");
             System.out.println(key + " has " + value.getPlaneTravel().size() + " plane travel paths");
             System.out.println(key + " has " + value.getCarTravel().size() + " car travel paths");
-        });
+        });*/
 
     }
 }

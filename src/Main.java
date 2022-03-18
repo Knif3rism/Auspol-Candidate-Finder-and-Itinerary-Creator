@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import Model.Airport;
@@ -9,18 +10,30 @@ public class Main
     public static void main(String[] args)
     {
         HashMap<String, Airport> airportMap;
+        String[] adjAirports;
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
+        adjAirports = airportMap.get("WA").getPlaneTravelPaths();
+
+        System.out.println("WA Plane Paths: ");
+        for (int ii = 0; ii < adjAirports.length; ii++)
+        {
+            System.out.println(adjAirports[ii]);
+        }
+
+        adjAirports = airportMap.get("WA").getCarTravelPaths();
+
+        System.out.println("\nWA Car Paths: ");
+        for (int ii = 0; ii < adjAirports.length; ii++)
+        {
+            System.out.println(adjAirports[ii]);
+        }
+
         //Load Candidates
 
-        airportMap.forEach((key, value) -> {
-            System.out.println("---");
-            System.out.println(key + " has " + value.getPlaneTravel().size() + " plane travel paths");
-            System.out.println(key + " has " + value.getCarTravel().size() + " car travel paths");
-        });
             
 
 

@@ -24,6 +24,7 @@ public class Input
 
             sc.nextLine();
 
+            //First Pass
             while(sc.hasNextLine())
             {
                 temp = sc.nextLine().split(",");
@@ -31,6 +32,12 @@ public class Input
                 {
                     tempAirport = new Airport(temp[0], temp[1], Double.parseDouble(temp[2]), Double.parseDouble(temp[3]));
                     airportMap.put(temp[0], tempAirport);
+                }
+
+                if (!(airportMap.containsKey(temp[4])))
+                {
+                    tempAirport = new Airport(temp[4], temp[5], Double.parseDouble(temp[6]), Double.parseDouble(temp[7]));
+                    airportMap.put(temp[4], tempAirport);
                 }
             }
 
@@ -64,11 +71,11 @@ public class Input
                 
                 if (tempStr[10].equals("plane"))
                 {
-                    tempAir.addPlaneEdge(airportMap.get(tempStr[5]), Long.parseLong(tempStr[8]), tempStr[9]);
+                    tempAir.addPlaneEdge(airportMap.get(tempStr[4]), Long.parseLong(tempStr[8]), tempStr[9]);
                 }
                 else
                 {
-                    tempAir.addCarEdge(airportMap.get(tempStr[5]), Long.parseLong(tempStr[8]), tempStr[9]);
+                    tempAir.addCarEdge(airportMap.get(tempStr[4]), Long.parseLong(tempStr[8]), tempStr[9]);
                 }
             }
 

@@ -1,6 +1,6 @@
 package View;
 
-public class MergeSort 
+public class Sort 
 {
     
 }
