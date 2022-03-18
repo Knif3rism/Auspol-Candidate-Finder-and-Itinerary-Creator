@@ -14,13 +14,13 @@ public class Main
         Airport[] adjAirports;
         List<String> list;
 
-        String src = "QLD", dest = "NT";
+        String src = "VIC", dest = "NT";
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        //Keep in mind that the data provided by AirportDist1.0 has few valid paths
+        //Keep in mind that the data provided by "AirportDist1.0" has few valid paths
         list = TravelPath.travelPathDFS(airportMap, src, dest);
         System.out.println("\n" + src + " to " + dest + ":");
         if (list.size() == 1)

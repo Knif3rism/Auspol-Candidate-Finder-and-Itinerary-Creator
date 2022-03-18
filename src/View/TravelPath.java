@@ -23,7 +23,8 @@ public class TravelPath
 
         travelPathDFSRecurse(airportMap, tempList, airportMap.get(src), airportMap.get(dest));
 
-
+        /*Because of the recursive algorithm I created I need to cull some extra invalid bits of
+          data that came from other recursion trees*/
         if (airportMap.get(dest).hasBeenVisited() && (tempList.size() > 2))
         {
             visitedNodes.add(src);
@@ -59,11 +60,11 @@ public class TravelPath
             planePaths = curr.getPlaneTravelPaths();
             
             //Initial Pass attempts to find the destination in the adj. matrix recurse to it
-            for (Airport air : planePaths)
+            for (Airport nextNode : planePaths)
             {
-                if (air.getState().equals(dest.getState()))
+                if (nextNode.getState().equals(dest.getState()))
                 {
-                    travelPathDFSRecurse(airportMap, visitedNodes, air, dest);
+                    travelPathDFSRecurse(airportMap, visitedNodes, nextNode, dest);
                     foundDest = true;
                 }
             }
@@ -71,17 +72,18 @@ public class TravelPath
             //If the destination is not found, recurse naively
             if (!foundDest)
             {
-                for (Airport air : planePaths)
+                for (Airport nextNode : planePaths)
                 {
-                    if (!air.getState().equals("QLD") && !dest.getState().equals("QLD") &&
-                        !air.getState().equals(curr.getState()))
+                    /*if the next node is QLD and it isn't the destination don't bother recursing to it
+                      as it's a sink, meaning it has no outbound flights.*/
+                    if (!nextNode.getState().equals("QLD") && !dest.getState().equals("QLD"))
                     {
                         planePaths = curr.getPlaneTravelPaths();
-                        travelPathDFSRecurse(airportMap, visitedNodes, air, dest);
+                        travelPathDFSRecurse(airportMap, visitedNodes, nextNode, dest);
                     }
 
-                    //If one of the next destinations is QLD, which is a sink, drop this current node
-                    else if (air.getState().equals("QLD") && !dest.getState().equals("QLD"))
+                    /*We remove the current node from the list because it's an invalid path*/
+                    else if (nextNode.getState().equals("QLD") && !dest.getState().equals("QLD"))
                     {
                         visitedNodes.remove(visitedNodes.size()-1);
                     }
