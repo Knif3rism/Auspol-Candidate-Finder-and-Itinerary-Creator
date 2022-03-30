@@ -11,30 +11,13 @@ public class Main
     public static void main(String[] args)
     {
         HashMap<String, Airport> airportMap;
-        Airport[] adjAirports;
-        List<String> list;
-
-        String src = "VIC", dest = "NT";
+        String src = "WA", dest = "TAS";
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        //Keep in mind that the data provided by "AirportDist1.0" has few valid paths
-        list = TravelPath.travelPathDFS(airportMap, src, dest);
-        System.out.println("\n" + src + " to " + dest + ":");
-        if (list.size() == 1)
-        {
-            System.out.println("Invalid Route");
-        }
-        else
-        {
-            for (int ii = 0; ii < list.size(); ii++)
-            {
-                System.out.println(list.get(ii));
-            }
-        }
-        
+        TravelPath.travelPathDFS(airportMap, src, dest);
 
         //Load Candidates
 

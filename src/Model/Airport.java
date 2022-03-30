@@ -45,32 +45,23 @@ public class Airport
         return longtitude;
     }
 
-    public Airport[] getPlaneTravelPaths()
+    public long getPlaneDistance(Airport closestAirport)
     {
-        Airport[]planePathArr;
+        boolean airportFound = false;
+        int ii = 0;
+        long outDist = 0;
 
-        planePathArr = new Airport[byPlane.size()];
-
-        for (int ii = 0; ii < planePathArr.length; ii++)
+        while (ii < byPlane.size() && !airportFound)
         {
-            planePathArr[ii] = byPlane.get(ii).dest;
+            if (byPlane.get(ii).dest.getState().equals(closestAirport.getState()))
+            {
+                airportFound = true;
+                outDist = byPlane.get(ii).getDist();
+            }
+            ii++;
         }
 
-        return planePathArr;
-    }
-
-    public Airport[] getCarTravelPaths()
-    {
-        Airport[] carPathArr;
-
-        carPathArr = new Airport[byCar.size()];
-
-        for (int ii = 0; ii < carPathArr.length; ii++)
-        {
-            carPathArr[ii] = byCar.get(ii).dest;
-        }
-
-        return carPathArr;
+        return outDist;
     }
 
     public boolean hasBeenVisited()
@@ -86,6 +77,62 @@ public class Airport
     public void clearVisited()
     {
         visited = false;
+    }
+
+    public Airport[] getPlaneTravelPaths()
+    {
+        Airport[] planePathArr;
+
+        planePathArr = new Airport[byPlane.size()];
+
+        for (int ii = 0; ii < planePathArr.length; ii++)
+        {
+            planePathArr[ii] = byPlane.get(ii).dest;
+        }
+
+        return planePathArr;
+    }
+
+    public Long[] getPlaneTravelDistances()
+    {
+        Long[] planeTravelDist;
+
+        planeTravelDist = new Long[byPlane.size()];
+
+        for (int ii = 0; ii < planeTravelDist.length; ii++)
+        {
+            planeTravelDist[ii] = byPlane.get(ii).dist;
+        }
+
+        return planeTravelDist;
+    }
+
+    public String[] getPlaneTravelTimes()
+    {
+        String[] planeTravelDist;
+
+        planeTravelDist = new String[byPlane.size()];
+
+        for (int ii = 0; ii < planeTravelDist.length; ii++)
+        {
+            planeTravelDist[ii] = byPlane.get(ii).time;
+        }
+
+        return planeTravelDist;
+    }
+
+    public Airport[] getCarTravelPaths()
+    {
+        Airport[] carPathArr;
+
+        carPathArr = new Airport[byCar.size()];
+
+        for (int ii = 0; ii < carPathArr.length; ii++)
+        {
+            carPathArr[ii] = byCar.get(ii).dest;
+        }
+
+        return carPathArr;
     }
 
     public void addPlaneEdge(Airport dest, long dist, String time)
