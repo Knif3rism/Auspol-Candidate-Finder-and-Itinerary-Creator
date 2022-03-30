@@ -9,11 +9,9 @@ import Model.Airport;
 
 public class TravelPath 
 {
-    public static List<String> travelPathDFS(HashMap<String, Airport> airportMap, String src, String dest)
+    public static String[] travelPathDFS(HashMap<String, Airport> airportMap, String src, String dest)
     {
-        int ii = 0;
-        List<String> tempList = new ArrayList<String>();
-        List<String> visitedNodes = new ArrayList<String>();
+        String [] visitedNodes = new String[2];
 
         airportMap.forEach((key, value) -> {
             value.clearVisited();
@@ -21,34 +19,14 @@ public class TravelPath
 
         //dijkstra's algorithm
         //https://stackabuse.com/graphs-in-java-dijkstras-algorithm/
-        shortestPath(airportMap, airportMap.get(src), airportMap.get(dest));
-        //travelPathDFSRecursev2(airportMap, tempList, airportMap.get(src), airportMap.get(dest));
-
-        /*Because of the recursive algorithm I created I need to cull some extra invalid bits of
-          data that came from other recursion trees*/
-        /*if (airportMap.get(dest).hasBeenVisited() && (tempList.size() > 2))
-        {
-            visitedNodes.add(src);
-            do
-            {
-                visitedNodes.add(tempList.get(ii));
-                ii++;
-            }
-            while (!tempList.get(ii).equals(dest));
-            visitedNodes.add(dest);
-        }
-        else
-        {
-            for (ii = 0; ii < tempList.size(); ii++)
-            {
-                visitedNodes.add(tempList.get(ii));
-            }
-        }*/
+        shortestPath(airportMap, visitedNodes, airportMap.get(src), airportMap.get(dest));
+        
+        
 
         return visitedNodes;
     }
 
-    public static void shortestPath(HashMap<String, Airport> airportMap, Airport src, Airport dest)
+    public static void shortestPath(HashMap<String, Airport> airportMap, String[] visitedNodes, Airport src, Airport dest)
     {
         Airport prevNode = src;
         Airport currNode = src;
@@ -107,8 +85,8 @@ public class TravelPath
                     path = parNode.getState() + " " + child.getState();
                     child = parNode;
                 }
-                System.out.println("Path: " + path);
-                System.out.println("Shortest path cost is: " + smallestPathCost.get(dest));
+                visitedNodes[0] = path;
+                visitedNodes[1] = smallestPathCost.get(dest).toString();
                 return;
             }
 
@@ -129,10 +107,8 @@ public class TravelPath
 
         while (ii < connectingAirports.length)
         {
-            System.out.println(connectingAirports[ii].getState() + ".equals(" + dest.getState() + ") = " + connectingAirports[ii].getState().equals(dest.getState()));
             if (connectingAirports[ii].getState().equals(dest.getState()))
             {
-                System.out.println("Joe");
                 node = connectingAirports[ii];
                 break;
             }
@@ -152,8 +128,6 @@ public class TravelPath
 
         for (long currDist : travelDistance)
         {
-            System.out.println("---" + currNode.getState() + "---");
-            System.out.println(currDist + " " + connectingAirports[ii].getState());
             if (!connectingAirports[ii].hasBeenVisited())
             {
                 if (smallesPathcost.get(currNode) + currDist < smallesPathcost.get(connectingAirports[ii]))
@@ -165,8 +139,6 @@ public class TravelPath
 
             ii++;
         }
-
-        System.out.println("---");
     }
 
     //This only takes into the metric, distance. It does not account for time and also, does not account for car travel.

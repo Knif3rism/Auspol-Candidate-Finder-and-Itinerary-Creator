@@ -12,12 +12,15 @@ public class Main
     {
         HashMap<String, Airport> airportMap;
         String src = "WA", dest = "TAS";
+        String[] test = new String[2];
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        TravelPath.travelPathDFS(airportMap, src, dest);
+        test = TravelPath.travelPathDFS(airportMap, src, dest);
+        System.out.println(test[0]);
+        System.out.println(test[1]);
 
         //Load Candidates
 
