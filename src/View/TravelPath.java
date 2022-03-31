@@ -1,8 +1,6 @@
 package View;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import Model.Airport;
@@ -62,7 +60,6 @@ public class TravelPath
             //Check if there is no valid paths
             if (currNode == null)
             {
-                System.out.println("There isn't a path between " + src.getState() + " and " + dest.getState());
                 return;
             }
 
@@ -142,7 +139,7 @@ public class TravelPath
     }
 
     //This only takes into the metric, distance. It does not account for time and also, does not account for car travel.
-    //It's just assumed to be slower than travel by plane.
+    //It's just assumed that car travel is slower than travel by plane.
     public static Airport closestAirport(Airport currNode)
     {
         int ii = 0;

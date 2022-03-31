@@ -11,23 +11,23 @@ public class Main
     public static void main(String[] args)
     {
         HashMap<String, Airport> airportMap;
-        String src = "WA", dest = "TAS";
-        String[] test = new String[2];
+        String src = "NT", dest = "WA";
+        String[] path = new String[2];
 
         //Load Airport Map and Connections
         airportMap = FileIO.Input.setAirport();
         airportMap = FileIO.Input.setAirportPaths(airportMap);
 
-        test = TravelPath.travelPathDFS(airportMap, src, dest);
-        System.out.println(test[0]);
-        System.out.println(test[1]);
+        path = TravelPath.travelPathDFS(airportMap, src, dest);
+
+
 
         //Load Candidates
-
+        
             
 
 
-        /*Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int choice = 1;
 
         do
@@ -44,7 +44,7 @@ public class Main
         }
         while (choice != 0);
 
-        sc.close();*/
+        sc.close();
     }
 
     public static void menuSelection(int choice)
@@ -61,6 +61,7 @@ public class Main
                 break;
 
             case 4:
+                
                 break;
 
             case 0:
